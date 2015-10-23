@@ -1,5 +1,5 @@
 <?php
-   // define variables and set to empty values
+// define variables and set to empty values
 $matric = $mcode = $grade = "";
 
 if (isset($_POST["submit"])) {
