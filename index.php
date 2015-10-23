@@ -7,6 +7,7 @@
   <body>
     <div class="nav">
       <div class="container">
+        <a class="btn btn-default" href="#" role="button">Home</a>
         <a class="btn btn-default" href="sql.php" role="button">SQL Injection</a>
         <a class="btn btn-default" href="#" role="button">XSS</a>
       </div>
