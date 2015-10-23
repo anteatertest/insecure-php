@@ -17,3 +17,16 @@ CREATE TABLE IF NOT EXISTS `cs3235`.`users` (
   `grade` VARCHAR(2) NOT NULL,
   PRIMARY KEY (`matric`, `mcode`))
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `cs3235`.`comments`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cs3235`.`comments` ;
+
+CREATE TABLE IF NOT EXISTS `cs3235`.`comments` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `time` VARCHAR(100) NOT NULL,
+  `content` TEXT NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
