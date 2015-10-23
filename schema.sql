@@ -15,5 +15,5 @@ CREATE TABLE IF NOT EXISTS `cs3235`.`users` (
   `matric` VARCHAR(9) NOT NULL,
   `mcode` VARCHAR(6) NOT NULL,
   `grade` VARCHAR(2) NOT NULL,
-  PRIMARY KEY (`matric`))
+  PRIMARY KEY (`matric`, `mcode`))
 ENGINE = InnoDB;
