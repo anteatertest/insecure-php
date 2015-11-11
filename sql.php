@@ -17,9 +17,7 @@ function connect() {
 
 function getData($matric) {
   $conn = connect();
-  $result = mysqli_query($conn, "SELECT matric, mcode, grade
-                                 FROM users
-                                 WHERE matric='$matric'");
+  $result = mysqli_query($conn, "SELECT matric, mcode, grade FROM users WHERE matric='$matric'");
   mysqli_close($conn);
   return $result;
 }
@@ -53,8 +51,7 @@ function printTable() {
     $grade = $_POST["grade"];
 
     $conn = connect();
-    mysqli_query($conn, "INSERT INTO users(matric, mcode, grade)
-                         VALUES ('$matric', '$mcode', '$grade');");
+    mysqli_query($conn, "INSERT INTO users(matric, mcode, grade) VALUES ('$matric', '$mcode', '$grade');");
     mysqli_close($conn);
 
     printData($matric);
