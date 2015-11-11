@@ -12,9 +12,9 @@ USE `cs3235` ;
 DROP TABLE IF EXISTS `cs3235`.`users` ;
 
 CREATE TABLE IF NOT EXISTS `cs3235`.`users` (
-  `matric` VARCHAR(9) NOT NULL,
-  `mcode` VARCHAR(6) NOT NULL,
-  `grade` VARCHAR(2) NOT NULL,
+  `matric` VARCHAR(100) NOT NULL,
+  `mcode` VARCHAR(100) NOT NULL,
+  `grade` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`matric`, `mcode`))
 ENGINE = InnoDB;
 
