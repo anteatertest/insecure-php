@@ -10,7 +10,7 @@ function connect() {
   // Check connection
   if (mysqli_connect_errno()) {
     die("Connection failed: " . mysqli_connect_error());
-  } 
+  }
 
   return $conn;
 }
@@ -75,8 +75,16 @@ function printTable() {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
   </head>
-  <body> 
-
+  <body>
+    <div class="navbar navbar-default">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li><a href="/" role="button">Home</a></li>
+          <li><a href="sql.php" role="button">SQL Injection</a></li>
+          <li><a href="forum.php" role="button">XSS</a></li>
+        </ul>
+      </div>
+    </div>
     <div class = "form">
       <div class = "container">
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

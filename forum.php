@@ -1,4 +1,4 @@
-<?php
+  <?php
   $name = $comment = $time = "";
   date_default_timezone_set('Asia/Singapore');
   if(isset($_POST["submit"])){
@@ -6,8 +6,7 @@
     $comment = $_POST["comment"];
     $time = date('d-m-Y \a\t h:i A');
     $conn = connect();
-    $sql = "INSERT INTO comments(name, time, content) VALUES ('". $name ."', '".$time."', '".$comment."')";
-    $conn->query($sql);
+    $conn->query("INSERT INTO comments(name, time, content) VALUES ('". $name ."', '".$time."', '".$comment."')");
     $conn->close();
   }
 
@@ -27,8 +26,7 @@
 
   function getAll() {
     $conn = connect();
-    $sql = "SELECT * FROM comments";
-    $result = $conn->query($sql);
+    $result = $conn->query("SELECT * FROM comments");
     $conn->close();
     return $result;
   }
@@ -42,6 +40,15 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <div class="navbar navbar-default">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li><a href="/" role="button">Home</a></li>
+          <li><a href="sql.php" role="button">SQL Injection</a></li>
+          <li><a href="forum.php" role="button">XSS</a></li>
+        </ul>
+      </div>
+    </div>
     <div class="container">
       <h1>Forum</h1>
       <div class="jumbotron">

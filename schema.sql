@@ -30,3 +30,15 @@ CREATE TABLE IF NOT EXISTS `cs3235`.`comments` (
   `content` TEXT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `cs3235`.`accounts`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cs3235`.`accounts` ;
+
+CREATE TABLE IF NOT EXISTS `cs3235`.`accounts` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(100) NOT NULL UNIQUE,
+  `password` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
