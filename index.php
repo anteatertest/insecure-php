@@ -10,7 +10,7 @@
       $email = $_POST["email"];
       $password = $_POST["password"];
       $password = hash('sha256', $password);
-      $result = $conn->query("SELECT * FROM accounts where email='$email'");
+      $result = $conn->query("SELECT * FROM accounts WHERE email='$email'");
       $row = mysqli_fetch_array($result);
       if($row){
         if(strcmp($row['password'],$password)==0){
@@ -31,7 +31,7 @@
       $email = $_POST["email"];
       $password = $_POST["password"];
       $password = hash('sha256', $password);
-      $check = mysqli_fetch_array($conn->query("SELECT * FROM accounts where email='$email'"));
+      $check = mysqli_fetch_array($conn->query("SELECT * FROM accounts WHERE email='$email'"));
       if (!empty($check)) {
         $status = 2;
       } else {
@@ -42,14 +42,13 @@
   }
   else {
     $conn = connect();
-    $check = mysqli_fetch_array($conn->query("SELECT * FROM cookies where email='$email'"));
+    $check = mysqli_fetch_array($conn->query("SELECT * FROM cookies WHERE email='$email'"));
     $conn->close();
     if (!empty($check)) {
       header("Location:login.php");
     } else {
       session_regenerate_id();
-      unset($_SESSION["user_id"]);
-      unset($_SESSION["user_name"]);
+      $conn->query("DELETE FROM cookies WHERE email='$email'");
       header("Location:index.php");
     }
   }
