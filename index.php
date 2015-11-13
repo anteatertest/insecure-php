@@ -1,26 +1,40 @@
 <?php
-  $email = $password = "";
-  $login = 0;
   date_default_timezone_set('Asia/Singapore');
-  if(isset($_POST["submit"])){
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $password = hash('sha256', $password);
-    $conn = connect();
-    $result = $conn->query("SELECT password FROM accounts where email='".$email."'");
-    $conn->close();
-    if($result->num_rows > 0){
-      $row = $result->fetch_assoc();
-      if(strcmp($row["password"],$password)==0){
-        $login = 1;
-      }
-      else {
-        $login = -1;
+  session_start();
+  $login = 0;
+
+  if(!isset($_SESSION['user_id']) || !isset($_SESSION['user_name'])){
+    if(isset($_POST["signin"])){
+      $email = $_POST["email"];
+      $password = $_POST["password"];
+      $password = hash('sha256', $password);
+      $conn = connect();
+      $result = $conn->query("SELECT * FROM accounts where email='$email'");
+      $conn->close();
+      $row = mysqli_fetch_array($result);
+      if($row){
+        if(strcmp($row['password'],$password)==0){
+          $_SESSION['user_id'] = $row['id'];
+          $_SESSION['user_name'] = $row['email'];
+          header("Location:login.php");
+        }
+        else {
+          $login = -1;
+        }
       }
     }
-    else {
-      $login = -1;
+
+    if(isset($_POST["signup"])) {
+      $email = $_POST["email"];
+      $password = $_POST["password"];
+      $password = hash('sha256', $password);
+      $conn = connect();
+      $conn->query("INSERT INTO accounts(email, password) VALUES ('$email', '$password')");
+      $conn->close();
     }
+  }
+  else {
+    header("Location:login.php");
   }
 
   function connect(){
@@ -38,7 +52,6 @@
   }
 ?>
 
-<!DOCTYPE html>
 <html>
 <head>
   <title>Insecure Form</title>
@@ -77,7 +90,8 @@
             <input type="password" name="password" class="form-control" id="passwordAccount" placeholder="Enter your password">
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <input type="submit" class="btn btn-primary" name="signin" value="Sign In">
+        <button type="submit" class="btn btn-primary" name="signup">Sign Up</button>
       </form>
     </div>
   </div>

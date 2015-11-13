@@ -51,7 +51,7 @@ function printTable() {
     $grade = $_POST["grade"];
 
     $conn = connect();
-    mysqli_query($conn, "INSERT INTO users(matric, mcode, grade) VALUES ('$matric', '$mcode', '$grade');");
+    mysqli_query($conn, "INSERT INTO users(matric, mcode, grade) VALUES ('$matric', '$mcode', '$grade')");
     mysqli_close($conn);
 
     printData($matric);
@@ -66,50 +66,51 @@ function printTable() {
 ?>
 
 <html>
-  <head>
+<head>
   <title>SQL Injection</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <div class="navbar navbar-default">
-      <div class="container">
-        <ul class="nav navbar-nav">
-          <li><a href="/" role="button">Home</a></li>
-          <li><a href="sql.php" role="button">SQL Injection</a></li>
-          <li><a href="forum.php" role="button">XSS</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class = "form">
-      <div class = "container">
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-          <div class="form-group">
-            <label for="inputMatric">Matric Number</label>
-            <input type="text" class="form-control" id="inputMatric" name="matric">
-          </div>
-          <div class="form-group">
-            <label for="inputModuleCode">Module Code</label>
-            <input type="text" class="form-control" id="inputModuleCode" name="mcode">
-          </div>
-          <div class="form-group">
-            <label for="inputGrade">Grade</label>
-            <input type="text" class="form-control" id="inputGrade" name="grade">
-          </div>
-          <input type="submit" class="btn btn-info" id="button" name="show" value="Show">
-          <input type="submit" class="btn btn-info" id="button" name="submit" value="Submit">
-        </form>
-      </div>
-    </div>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
 
-    <div class="table">
-      <div = class="container">
-        <?php printTable();?>
-      </div>
+<body>
+  <div class="navbar navbar-default">
+    <div class="container">
+      <ul class="nav navbar-nav">
+        <li><a href="index.php" role="button">Home</a></li>
+        <li><a href="sql.php" role="button">SQL Injection</a></li>
+        <li><a href="forum.php" role="button">XSS</a></li>
+      </ul>
     </div>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  </body>
+  </div>
+  <div class = "form">
+    <div class = "container">
+      <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <div class="form-group">
+          <label for="inputMatric">Matric Number</label>
+          <input type="text" class="form-control" id="inputMatric" name="matric">
+        </div>
+        <div class="form-group">
+          <label for="inputModuleCode">Module Code</label>
+          <input type="text" class="form-control" id="inputModuleCode" name="mcode">
+        </div>
+        <div class="form-group">
+          <label for="inputGrade">Grade</label>
+          <input type="text" class="form-control" id="inputGrade" name="grade">
+        </div>
+        <input type="submit" class="btn btn-primary" name="show" value="Show">
+        <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="table">
+    <div = class="container">
+      <?php printTable();?>
+    </div>
+  </div>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
 </html>

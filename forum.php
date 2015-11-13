@@ -34,7 +34,7 @@
 
 <html>
   <head>
-    <title>SQL Injection</title>
+    <title>XSS</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
@@ -43,7 +43,7 @@
     <div class="navbar navbar-default">
       <div class="container">
         <ul class="nav navbar-nav">
-          <li><a href="/" role="button">Home</a></li>
+          <li><a href="index.php" role="button">Home</a></li>
           <li><a href="sql.php" role="button">SQL Injection</a></li>
           <li><a href="forum.php" role="button">XSS</a></li>
         </ul>
