@@ -1,26 +1,29 @@
 <?php
   date_default_timezone_set('Asia/Singapore');
   session_start();
-  $login = 0;
+  $status = 0;
 
   if(!isset($_SESSION['user_id']) || !isset($_SESSION['user_name'])){
+    $conn = connect();
+
     if(isset($_POST["signin"])){
       $email = $_POST["email"];
       $password = $_POST["password"];
       $password = hash('sha256', $password);
-      $conn = connect();
       $result = $conn->query("SELECT * FROM accounts where email='$email'");
-      $conn->close();
       $row = mysqli_fetch_array($result);
       if($row){
         if(strcmp($row['password'],$password)==0){
           $_SESSION['user_id'] = $row['id'];
           $_SESSION['user_name'] = $row['email'];
+          $conn->query("INSERT INTO cookies(email) VALUES ('$email')");
+          $conn->close();
           header("Location:login.php");
+        } else {
+          $status = -1;
         }
-        else {
-          $login = -1;
-        }
+      } else {
+        $status = -1;
       }
     }
 
@@ -28,13 +31,27 @@
       $email = $_POST["email"];
       $password = $_POST["password"];
       $password = hash('sha256', $password);
-      $conn = connect();
-      $conn->query("INSERT INTO accounts(email, password) VALUES ('$email', '$password')");
-      $conn->close();
+      $check = mysqli_fetch_array($conn->query("SELECT * FROM accounts where email='$email'"));
+      if (!empty($check)) {
+        $status = 2;
+      } else {
+        $conn->query("INSERT INTO accounts(email, password) VALUES ('$email', '$password')");
+        $status = 1;
+      }
     }
   }
   else {
-    header("Location:login.php");
+    $conn = connect();
+    $check = mysqli_fetch_array($conn->query("SELECT * FROM cookies where email='$email'"));
+    $conn->close();
+    if (!empty($check)) {
+      header("Location:login.php");
+    } else {
+      session_regenerate_id();
+      unset($_SESSION["user_id"]);
+      unset($_SESSION["user_name"]);
+      header("Location:index.php");
+    }
   }
 
   function connect(){
@@ -69,10 +86,12 @@
     </div>
   </div>
   <?php
-    if($login==1){
-      echo '<div class="alert alert-success" role="alert">You have logged in as '.$email.'!</div>';
-    } else if($login==-1){
-      echo '<div class="alert alert-danger" role="alert">Wrong username or password!</div>';
+    if ($status == 1) {
+      echo '<div class="container"><div class="alert alert-success" role="alert">Sign up sucessful as '.$email.'!</div></div>';
+    } else if ($status == 2) {
+      echo '<div class="container"><div class="alert alert-danger" role="alert">Sign up failed!</div></div>';
+    } else if ($status == -1) {
+      echo '<div class="container"><div class="alert alert-danger" role="alert">Wrong username or password!</div></div>';
     }
   ?>
   <div class="container">

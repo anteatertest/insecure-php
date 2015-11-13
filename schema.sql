@@ -42,3 +42,16 @@ CREATE TABLE IF NOT EXISTS `cs3235`.`accounts` (
   `password` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `cs3235`.`cookies`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cs3235`.`cookies` ;
+
+CREATE TABLE IF NOT EXISTS `cs3235`.`cookies` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(100) NOT NULL UNIQUE,
+  `cookie` VARCHAR(100) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
