@@ -3,6 +3,7 @@
   if(!isset($_SESSION['user_id']) || !isset($_SESSION['user_name'])){
     header("Location:index.php");
   }
+  echo session_id();
 ?>
 
 <html>
@@ -17,9 +18,9 @@
   <div class="navbar navbar-default">
     <div class="container">
       <ul class="nav navbar-nav">
-        <li><a href="index.php" role="button">Home</a></li>
         <li><a href="sql.php" role="button">SQL Injection</a></li>
         <li><a href="forum.php" role="button">XSS</a></li>
+        <li><a href="logout.php" role="button">Logout</a></li>
       </ul>
     </div>
   </div>
@@ -28,7 +29,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-16">
-          <p>Welcome <?php echo $_SESSION["user_name"];?>. Click here to <a href="logout.php">logout</a>.</p>
+          <p>Welcome <?php echo $_SESSION["user_name"];?>!</p>
         </div>
       </div>
     </div>

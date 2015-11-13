@@ -82,9 +82,9 @@ function printTable() {
   <div class="navbar navbar-default">
     <div class="container">
       <ul class="nav navbar-nav">
-        <li><a href="index.php" role="button">Home</a></li>
         <li><a href="sql.php" role="button">SQL Injection</a></li>
         <li><a href="forum.php" role="button">XSS</a></li>
+        <li><a href="logout.php" role="button">Logout</a></li>
       </ul>
     </div>
   </div>

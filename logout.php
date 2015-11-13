@@ -1,8 +1,8 @@
 <?php
   session_start();
-  $email = $_SESSION["user_name"];
+  $session = session_id();
   $conn = connect();
-  $conn->query("DELETE FROM cookies WHERE email='$email'");
+  $conn->query("DELETE FROM cookies WHERE session='$session'");
   $conn->close();
   unset($_SESSION["user_id"]);
   unset($_SESSION["user_name"]);

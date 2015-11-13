@@ -3,10 +3,10 @@
   session_start();
   $status = 0;
 
-  if(!isset($_SESSION['user_id']) || !isset($_SESSION['user_name'])){
+  if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_name'])) {
     $conn = connect();
 
-    if(isset($_POST["signin"])){
+    if (isset($_POST["signin"])) {
       $email = $_POST["email"];
       $password = $_POST["password"];
       $password = hash('sha256', $password);
@@ -16,7 +16,8 @@
         if(strcmp($row['password'],$password)==0){
           $_SESSION['user_id'] = $row['id'];
           $_SESSION['user_name'] = $row['email'];
-          $conn->query("INSERT INTO cookies(email) VALUES ('$email')");
+          $session = session_id();
+          $conn->query("INSERT INTO cookies(session) VALUES ('$session')");
           $conn->close();
           header("Location:login.php");
         } else {
@@ -42,14 +43,16 @@
   }
   else {
     $conn = connect();
-    $check = mysqli_fetch_array($conn->query("SELECT * FROM cookies WHERE email='$email'"));
-    $conn->close();
-    if (!empty($check)) {
+    $session = session_id();
+    $check = mysqli_fetch_array($conn->query("SELECT * FROM cookies WHERE session='$session'"));
+    if (empty($check)) {
+      $conn->close();
       header("Location:login.php");
-    } else {
+    }
+    else {
+      unset($_SESSION["user_id"]);
+      unset($_SESSION["user_name"]);
       session_regenerate_id();
-      $conn->query("DELETE FROM cookies WHERE email='$email'");
-      header("Location:index.php");
     }
   }
 
@@ -78,9 +81,7 @@
   <div class="navbar navbar-default">
     <div class="container">
       <ul class="nav navbar-nav">
-        <li><a href="#" role="button">Home</a></li>
-        <li><a href="sql.php" role="button">SQL Injection</a></li>
-        <li><a href="forum.php" role="button">XSS</a></li>
+        <li><a href="" role="button">Home</a></li>
       </ul>
     </div>
   </div>
